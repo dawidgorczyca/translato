@@ -30,7 +30,11 @@
     }],
     "react/jsx-no-bind": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "semi": ["error", "never"],
+    "linebreak-style": "off",
+    "flowtype/semi": [0, "never"],
+    "flowtype/delimiter-dangle": [0, "never"]
   },
   "plugins": [
     "flowtype",
