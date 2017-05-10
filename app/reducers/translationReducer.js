@@ -10,8 +10,10 @@ export type translationStateType = {
   content: string,
 }
 
-type actionType = {
-  type: string
+export type actionType = {
+  type: string,
+  phraseIndex: number,
+  content: string,
 }
 
 const initialState = {
@@ -21,10 +23,10 @@ const initialState = {
 
 export default function translationReducer(state: translationStateType = initialState, action: actionType) {
   switch (action.type) {
-    case CHANGE_NAME:
-      return update(state, { $set: { name: action.name } })
     case CHANGE_PHRASE_INDEX:
       return update(state, { $set: { phraseIndex: action.phraseIndex } })
+    case CHANGE_CONTENT:
+      return update(state, { $set: { content: action.content } })
     default:
       return {
         ...state

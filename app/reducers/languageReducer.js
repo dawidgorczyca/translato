@@ -10,8 +10,10 @@ export type languageStateType = {
   translations: Array<mixed>,
 }
 
-type actionType = {
-  type: string
+export type actionType = {
+  type: string,
+  index: number,
+  name: string,
 }
 
 const initialState = {
@@ -20,13 +22,13 @@ const initialState = {
 }
 
 export default function languageReducer(state: languageStateType = initialState, action: actionType) {
-  if(action.type.startsWith('translations/')) {
+  if (action.type.startsWith('translations/')) {
     return update(state, {
-      translations: {$set: [
+      translations: { $set: [
         ...state.translations.slice(0, action.index),
         translationReducer(state.translations[action.index], action),
         ...state.translations.slice(action.index + 1)
-      ]}
+      ] }
     })
   }
   switch (action.type) {

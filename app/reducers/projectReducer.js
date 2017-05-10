@@ -12,14 +12,18 @@ export type projectStateType = {
   languages: Array<mixed>,
 }
 
-type exportSetup = {
+export type exportSetup = {
   includeEditionData: boolean,
   splitLanguages: boolean,
   format: string,
 }
 
-type actionType = {
-  type: string
+export type actionType = {
+  type: string,
+  index: number,
+  name: string,
+  filename: string,
+  exportSetup: exportSetup,
 }
 
 const initialState = {
@@ -35,31 +39,31 @@ const initialState = {
 }
 
 export default function projectReducer(state: projectStateType = initialState, action: actionType) {
-  if(action.type.startsWith('phrases/')) {
+  if (action.type.startsWith('phrases/')) {
     return update(state, {
-      phrases: {$set: [
+      phrases: { $set: [
         ...state.phrases.slice(0, action.index),
         phraseReducer(state.phrases[action.index], action),
         ...state.phrases.slice(action.index + 1)
-      ]}
+      ] }
     })
   }
-  if(action.type.startsWith('languages/')) {
+  if (action.type.startsWith('languages/')) {
     return update(state, {
-      languages: {$set: [
+      languages: { $set: [
         ...state.languages.slice(0, action.index),
-        languagesReducer(state.languages[action.index], action),
+        languageReducer(state.languages[action.index], action),
         ...state.languages.slice(action.index + 1)
-      ]}
+      ] }
     })
   }
   switch (action.type) {
     case CHANGE_NAME:
-      return update(state, {$set: {name: action.name}})
+      return update(state, { $set: { name: action.name } })
     case CHANGE_FILENAME:
-      return update(state, {$set: {filename: action.filename}})
+      return update(state, { $set: { filename: action.filename } })
     case CHANGE_EXPORT_SETUP:
-      return update(state, {exportSetup: {$merge: action.exportSetup}})
+      return update(state, { exportSetup: { $merge: action.exportSetup } })
     default:
       return {
         ...state

@@ -20,8 +20,14 @@ export type phraseStateType = {
   maxLength: number,
 }
 
-type actionType = {
-  type: string
+export type actionType = {
+  type: string,
+  name: string,
+  languages: Array<mixed>,
+  date: string,
+  author: string,
+  maxLength: number,
+  status: number,
 }
 
 const initialState = {
@@ -49,7 +55,7 @@ export default function phraseReducer(state: phraseStateType = initialState, act
     case CHANGE_STATUS:
       return update(state, { $set: { status: action.status } })
     case CHANGE_MAX_LENGTH:
-      return update(state, { $set: { maxLength: action.length } })
+      return update(state, { $set: { maxLength: action.maxLength } })
     default:
       return {
         ...state
