@@ -1,7 +1,7 @@
 // @flow
 import {
-  CHANGE_PHRASE_INDEX,
-  CHANGE_CONTENT,
+  TRANS_PHRASE_INDEX,
+  TRANS_CONTENT,
 } from '../actions/phraseActions'
 import update from 'immutability-helper'
 
@@ -23,9 +23,9 @@ const initialState = {
 
 export default function translationReducer(state: translationStateType = initialState, action: actionType) {
   switch (action.type) {
-    case CHANGE_PHRASE_INDEX:
+    case TRANS_PHRASE_INDEX:
       return update(state, { $set: { phraseIndex: action.phraseIndex } })
-    case CHANGE_CONTENT:
+    case TRANS_CONTENT:
       return update(state, { $set: { content: action.content } })
     default:
       return {

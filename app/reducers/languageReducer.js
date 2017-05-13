@@ -1,6 +1,6 @@
 // @flow
 import {
-  CHANGE_NAME,
+  LANG_NAME,
 } from '../actions/languageActions'
 import translationReducer from './translationReducer'
 import update from 'immutability-helper'
@@ -32,7 +32,7 @@ export default function languageReducer(state: languageStateType = initialState,
     })
   }
   switch (action.type) {
-    case CHANGE_NAME:
+    case LANG_NAME:
       return update(state, { $set: { name: action.name } })
     default:
       return {

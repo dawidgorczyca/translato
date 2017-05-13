@@ -1,5 +1,8 @@
 // @flow
-import { CHANGE_NAME, CHANGE_FILENAME, CHANGE_EXPORT_SETUP } from '../actions/projectActions'
+import {
+  PROJECT_NAME,
+  PROJECT_FILENAME,
+  PROJECT_EXPORT_SETUP } from '../actions/projectActions'
 import phraseReducer from './phraseReducer'
 import languageReducer from './languageReducer'
 import update from 'immutability-helper'
@@ -58,11 +61,11 @@ export default function projectReducer(state: projectStateType = initialState, a
     })
   }
   switch (action.type) {
-    case CHANGE_NAME:
+    case PROJECT_NAME:
       return update(state, { $set: { name: action.name } })
-    case CHANGE_FILENAME:
+    case PROJECT_FILENAME:
       return update(state, { $set: { filename: action.filename } })
-    case CHANGE_EXPORT_SETUP:
+    case PROJECT_EXPORT_SETUP:
       return update(state, { exportSetup: { $merge: action.exportSetup } })
     default:
       return {
