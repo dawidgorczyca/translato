@@ -1,4 +1,3 @@
-// @flow
 import {
   PROJECT_NAME,
   PROJECT_FILENAME,
@@ -6,28 +5,6 @@ import {
 import phraseReducer from './phraseReducer'
 import languageReducer from './languageReducer'
 import update from 'immutability-helper'
-
-export type projectStateType = {
-  name: string,
-  filename: string,
-  exportSetup: exportSetup,
-  phrases: Array<mixed>,
-  languages: Array<mixed>,
-}
-
-export type exportSetup = {
-  includeEditionData: boolean,
-  splitLanguages: boolean,
-  format: string,
-}
-
-export type actionType = {
-  type: string,
-  index: number,
-  name: string,
-  filename: string,
-  exportSetup: exportSetup,
-}
 
 const initialState = {
   name: '',
@@ -41,7 +18,10 @@ const initialState = {
   languages: [],
 }
 
-export default function projectReducer(state: projectStateType = initialState, action: actionType) {
+// TODO:
+// Add/delete language/phrase action
+
+export default function projectReducer(state = initialState, action) {
   if (action.type.startsWith('phrases/')) {
     return update(state, {
       phrases: { $set: [

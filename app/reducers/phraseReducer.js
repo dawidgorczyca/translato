@@ -1,4 +1,3 @@
-// @flow
 import {
   PHRASE_NAME,
   PHRASE_LANGUAGES,
@@ -7,28 +6,9 @@ import {
   PHRASE_AUTHOR,
   PHRASE_STATUS,
   PHRASE_MAX_LENGTH,
+  PHRASE_SECTION,
 } from '../actions/phraseActions'
 import update from 'immutability-helper'
-
-export type phraseStateType = {
-  name: string,
-  languages: Array<mixed>,
-  dateAdded: string,
-  dateModified: string,
-  author: string,
-  status: number,
-  maxLength: number,
-}
-
-export type actionType = {
-  type: string,
-  name: string,
-  languages: Array<mixed>,
-  date: string,
-  author: string,
-  maxLength: number,
-  status: number,
-}
 
 const initialState = {
   name: '',
@@ -40,7 +20,7 @@ const initialState = {
   maxLength: 0,
 }
 
-export default function phraseReducer(state: phraseStateType = initialState, action: actionType) {
+export default function phraseReducer(state = initialState, action) {
   switch (action.type) {
     case PHRASE_NAME:
       return update(state, { $set: { name: action.name } })
@@ -56,6 +36,8 @@ export default function phraseReducer(state: phraseStateType = initialState, act
       return update(state, { $set: { status: action.status } })
     case PHRASE_MAX_LENGTH:
       return update(state, { $set: { maxLength: action.maxLength } })
+    case PHRASE_SECTION:
+      return update(state, { $set: { section: action.section } })
     default:
       return {
         ...state
