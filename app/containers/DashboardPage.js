@@ -8,6 +8,7 @@ import BasicInputComponent from '../components/BasicInputComponent'
 import { dashboardDefaultState } from '../statics/TypesAndDefaults'
 import languages from '../statics/languages'
 import styles from './DashboardPage.css'
+import createFile from '../utils/file'
 
 const { app, dialog } = require('electron').remote
 
@@ -57,7 +58,7 @@ class DashboardPage extends Component {
     if (event) {
       event.preventDefault()
     }
-    console.log('create a project')
+    createFile(this.state.projectPath, this.state.projectFilename, this.state.projectName)
   }
   toggleExistingProjects() {
     this.setState({ projectsVisible: !this.state.projectsVisible })
@@ -65,7 +66,10 @@ class DashboardPage extends Component {
   toggleCreateProjectForm() {
     this.setState({ projectCreationVisible: !this.state.projectCreationVisible })
   }
-  selectProjectPath() {
+  selectProjectPath(event) {
+    if (event) {
+      event.preventDefault()
+    }
     dialog.showOpenDialog({
       title: 'Select a folder for your project',
       properties: ['openDirectory']
@@ -75,7 +79,7 @@ class DashboardPage extends Component {
         console.log('No destination folder selected')
       } else {
         this.setState({ projectPath: folderPaths[0] })
-    }
+      }
     })
   }
   renderExistingProjects() {
@@ -87,15 +91,15 @@ class DashboardPage extends Component {
   }
   renderProjectCreationForm() {
     return (
-      <form className={styles.projectCreator} onSubmit={this.handleSubmit}>
+      <form className={styles.projectCreator}>
         <BasicInputComponent
           label="Project name:"
           name="projectName"
           type="text"
           value={this.state.projectName}
-          onChange={this.handleChange}
+          onChange={(event) => this.handleChange(event)}
         />
-        <button className={styles.projectCreator_pathButton} onClick={() => this.selectProjectPath()}>
+        <button className={styles.projectCreator_pathButton} onClick={(event) => this.selectProjectPath(event)}>
           Select folder for your project
         </button>
         <span className={styles.projectCreator_path}>
@@ -107,7 +111,7 @@ class DashboardPage extends Component {
           type="radio"
           value="multi"
           checked={this.state.projectSaveSetup === 'multi'}
-          onChange={this.handleChange}
+          onChange={(event) => this.handleChange(event)}
         />
         <BasicInputComponent
           label="One file for all languages"
@@ -115,30 +119,30 @@ class DashboardPage extends Component {
           type="radio"
           value="mono"
           checked={this.state.projectSaveSetup === 'mono'}
-          onChange={this.handleChange}
+          onChange={(event) => this.handleChange(event)}
         />
         <BasicInputComponent
           label="Filename:"
           name="projectFilename"
           type="text"
           value={this.state.projectFilename}
-          onChange={this.handleChange}
+          onChange={(event) => this.handleChange(event)}
         />
         <BasicInputComponent
           label="Include edition data"
           name="projectIncludeEditData"
           type="checkbox"
-          onChange={this.handleChange}
+          onChange={(event) => this.handleChange(event)}
         />
         <BasicInputComponent
           label="Project base language"
           name="projectBaseLanguage"
           type="select"
           options={languages}
-          onChange={this.handleChange}
+          onChange={(event) => this.handleChange(event)}
           value={this.state.projectBaseLanguage}
         />
-        <input type="submit" value="Create & Save" className={styles.buttonSubmit} />
+        <input type="submit" value="Create & Save" className={styles.buttonSubmit} onClick={(event) => this.handleSubmit(event)} />
       </form>
     )
   }
