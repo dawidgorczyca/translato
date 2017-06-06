@@ -1,0 +1,7 @@
+Features to add:
+-Get user language from the system settings
+-Github integration
+-Take loadfox messages files for example end files
+-filename automatic generation - based on project name
+-split dashboard into separate files for each section
+-functions for managing app.store (get value, set value)

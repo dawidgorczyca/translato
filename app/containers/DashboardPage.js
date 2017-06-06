@@ -28,6 +28,7 @@ class DashboardPage extends Component {
   componentWillMount() {
     if (this.props.username) {
       this.setState({ status: 'MainMenu' })
+      this.props.dispatch(ConfigActions.configSetUsername(this.props.username))
     }
   } 
   handleChange(event) {
@@ -43,21 +44,24 @@ class DashboardPage extends Component {
     app.store.set('username', '')
     this.props.dispatch(ConfigActions.configSetUsername(''))
   }
-  handleWizardSave(username) {
+  handleWizardSave(event) {
+    if (event) {
+      event.preventDefault()
+    }
     // TODO: Validation
-    this.saveUsername(username)
+    this.saveUsername(this.state.username)
     this.setState({ status: 'MainMenu' })
   }
   handleSubmit(event) {
+    if (event) {
+      event.preventDefault()
+    }
     // TODO:
     // Validation
     // Create files for the project
     // Populate project reducer with the configuration
     // Populate project languages with the base lang
     // Go to workbench
-    if (event) {
-      event.preventDefault()
-    }
     createFile(this.state.projectPath, this.state.projectFilename, this.state.projectName)
   }
   toggleExistingProjects() {
@@ -91,7 +95,7 @@ class DashboardPage extends Component {
   }
   renderProjectCreationForm() {
     return (
-      <form className={styles.projectCreator}>
+      <form className={styles.projectCreator} onSubmit={(event) => this.handleSubmit(event)}>
         <BasicInputComponent
           label="Project name:"
           name="projectName"
@@ -142,7 +146,7 @@ class DashboardPage extends Component {
           onChange={(event) => this.handleChange(event)}
           value={this.state.projectBaseLanguage}
         />
-        <input type="submit" value="Create & Save" className={styles.buttonSubmit} onClick={(event) => this.handleSubmit(event)} />
+        <input type="submit" value="Create & Save" className={styles.buttonSubmit} />
       </form>
     )
   }
@@ -152,7 +156,7 @@ class DashboardPage extends Component {
     const existingProjects = this.props.projects.length ? this.renderExistingProjects() : 'Nothing here yet'
     return (
       <div className={styles.mainMenu}>
-        <h2>Hello, {this.state.username}</h2>
+        <h2>Hello, {this.props.username}</h2>
         <button onClick={() => this.toggleCreateProjectForm()}>
           New Project
         </button>
@@ -170,14 +174,16 @@ class DashboardPage extends Component {
   renderInitialWizard() {
     return (
       <div className={styles.wizard}>
-        First, please tell me your name
-        <BasicInputComponent
-          name="username"
-          type="text"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
-        <button onClick={() => this.handleWizardSave(this.state.username)}>Save</button>
+        <form onSubmit={(event) => this.handleWizardSave(event)}>
+          First, please tell me your name
+          <BasicInputComponent
+            name="username"
+            type="text"
+            value={this.state.username}
+            onChange={this.handleChange}
+          />
+          <input type="submit" value="Save name" />
+        </form>
       </div>
     )
   }
