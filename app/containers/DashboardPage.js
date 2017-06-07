@@ -26,9 +26,14 @@ class DashboardPage extends Component {
     this.toggleCreateProjectForm = this.toggleCreateProjectForm.bind(this)
   }
   componentWillMount() {
-    if (this.props.username) {
+    if (app.store.data.projects) {
+      // TODO:
+      // Set up a project based on saved data/files
+      console.log(app.store.data.projects)
+    }
+    if (app.store.data.username || this.props.config.username) {
+      this.props.dispatch(ConfigActions.configSetUsername(app.store.data.username))
       this.setState({ status: 'MainMenu' })
-      this.props.dispatch(ConfigActions.configSetUsername(this.props.username))
     }
   } 
   handleChange(event) {
@@ -153,10 +158,10 @@ class DashboardPage extends Component {
   renderMenu() {
     const projectsVisibility = this.state.projectsVisible ? styles.dropdownOpen : styles.dropdownClosed
     const createProjectForm = this.state.projectCreationVisible ? this.renderProjectCreationForm() : ''
-    const existingProjects = this.props.projects.length ? this.renderExistingProjects() : 'Nothing here yet'
+    // const existingProjects = this.props.projects.length ? this.renderExistingProjects() : 'Nothing here yet'
     return (
       <div className={styles.mainMenu}>
-        <h2>Hello, {this.props.username}</h2>
+        <h2>Hello, {this.props.config.username}</h2>
         <button onClick={() => this.toggleCreateProjectForm()}>
           New Project
         </button>
@@ -165,7 +170,6 @@ class DashboardPage extends Component {
           Open project
         </button>
         <div className={projectsVisibility}>
-          {existingProjects}
         </div>
         <button onClick={() => this.cleanUsername()}>Clean username</button>
       </div>
@@ -200,13 +204,7 @@ class DashboardPage extends Component {
 }
 
 DashboardPage.propTypes = {
-  projects: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   dispatch: PropTypes.func.isRequired,
-  username: PropTypes.string,
-}
-
-DashboardPage.defaultProps = {
-  username: ''
 }
 
 const mapStateToProps = (state) => {
