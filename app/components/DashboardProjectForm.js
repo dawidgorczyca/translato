@@ -15,7 +15,7 @@ class DashboardProjectForm extends Component {
       projectSaveSetup: 'multi',
       projectFilename: '',
       projectIncludeEditData: false,
-      projectBaseLanguage: 'EN',
+      projectBaseLanguage: 'en',
     }
   }
   selectProjectPath(event) {
@@ -34,7 +34,23 @@ class DashboardProjectForm extends Component {
       }
     })
   }
+  generateFilename(projectName = this.state.projectName, saveSetup = this.state.projectSaveSetup, baseLanguage = this.state.projectBaseLanguage) {
+    return saveSetup === 'multi' ? `messages_${projectName}_${baseLanguage}` : `messages_${projectName}`
+  }
   handleChange(event) {
+    switch (event.target.name) {
+      case 'projectName':
+        this.setState({ projectFilename: this.generateFilename(event.target.value) })
+        break
+      case 'projectSaveSetup':
+        this.setState({ projectFilename: this.generateFilename(undefined, event.target.value, undefined) })
+        break
+      case 'projectBaseLanguage':
+        this.setState({ projectFilename: this.generateFilename(undefined, undefined, event.target.value) })
+        break
+      default:
+        break
+    }
     this.setState({ [event.target.name]: event.target.value })
     if (this.props.handleChange) {
       this.props.handleChange(event)
