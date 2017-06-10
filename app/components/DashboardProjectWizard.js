@@ -21,19 +21,20 @@ class DashboardProjectWizard extends Component {
   toggleCreateProjectForm() {
     this.setState({ projectCreationVisible: !this.state.projectCreationVisible })
   }
-  // renderExistingProjects() {
-  //   return (
-  //     this.props.projects.map((item, index) =>
-  //       <DashboardProjectComponent project={item} id={index} />
-  //     )
-  //   )
-  // }
+  renderExistingProjects() {
+    return (
+      this.props.projects.map((item, index) =>
+        <DashboardProjectComponent project={item} id={index} />
+      )
+    )
+  }
   render() {
     const projectForm = this.state.projectCreationVisible ?
       (<DashboardProjectForm
         handleChange={this.props.handleChange}
         handleSubmit={this.props.handleSubmit}
       />) : ''
+    const projects = this.state.projectsVisible ? this.renderExistingProjects() : ''
     return (
       <div className={styles.mainMenu}>
         <h2>Hello, {this.props.username}</h2>
@@ -44,8 +45,9 @@ class DashboardProjectWizard extends Component {
         <button onClick={() => this.toggleExistingProjects()}>
           Open project
         </button>
-        <div className={this.props.projectsVisibility}></div>
+        {projects}
         <button onClick={() => this.props.cleanUsername()}>Clean username</button>
+        <button onClick={() => this.props.cleanProjects()}>Clean projects</button>
       </div>
     )
   }
@@ -53,10 +55,11 @@ class DashboardProjectWizard extends Component {
 
 DashboardProjectWizard.propTypes = {
   username: PropTypes.string.isRequired,
-  projectsVisibility: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   cleanUsername: PropTypes.func,
+  cleanProjects: PropTypes.func,
   handleChange: PropTypes.func,
+  projects: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default DashboardProjectWizard

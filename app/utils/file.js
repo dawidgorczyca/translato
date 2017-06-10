@@ -1,10 +1,13 @@
 const fs = require('fs')
 
-const defaultPath = './'
+const defaultPath = '.'
 
-export default function createFile(projectPath = defaultPath, filename, content) {
-  console.log(filename)
-  fs.writeFile(`${projectPath}/${filename}.json`, `{test: '${content}'}`, (err) => {
+function prepareContent(content, config) {
+  return JSON.stringify({ content, config, })
+}
+
+export default function createFile(config, content) {
+  fs.writeFile(`${config.projectPath ? config.projectPath : defaultPath}/${config.projectFilename}.json`, prepareContent(content, config), (err) => {
     if (err) {
       return console.log(err)
     }

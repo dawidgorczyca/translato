@@ -6,7 +6,7 @@ import update from 'immutability-helper'
 
 const initialState = {
   username: '',
-  savedProjects: '',
+  savedProjects: [],
 }
 
 export default function configReducer(state = initialState, action) {

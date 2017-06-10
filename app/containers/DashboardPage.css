@@ -10,3 +10,6 @@
 .dropdownClosed {
   display: none;
 }
+.projectsList__hidden {
+  display: none;
+}

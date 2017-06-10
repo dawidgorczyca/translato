@@ -14,7 +14,6 @@ class DashboardProjectForm extends Component {
       projectPath: '',
       projectSaveSetup: 'multi',
       projectFilename: '',
-      projectIncludeEditData: false,
       projectBaseLanguage: 'en',
     }
   }
@@ -57,11 +56,7 @@ class DashboardProjectForm extends Component {
     }
   }
   handleSubmit(event) {
-    const data = {
-      projectPath: this.state.projectPath,
-      projectFilename: this.state.projectFilename,
-      projectName: this.state.projectName,
-    }
+    const data = this.state
     if (this.props.handleSubmit) {
       this.props.handleSubmit(event, data)
     }
@@ -103,12 +98,6 @@ class DashboardProjectForm extends Component {
           name="projectFilename"
           type="text"
           value={this.state.projectFilename}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <BasicInputComponent
-          label="Include edition data"
-          name="projectIncludeEditData"
-          type="checkbox"
           onChange={(event) => this.handleChange(event)}
         />
         <BasicInputComponent

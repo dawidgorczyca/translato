@@ -1,21 +1,18 @@
 import {
-  PROJECT_NAME,
-  PROJECT_FILENAME,
-  PROJECT_EXPORT_SETUP } from '../actions/projectActions'
+  PROJECT_CONFIG } from '../actions/projectActions'
 import phraseReducer from './phraseReducer'
 import languageReducer from './languageReducer'
 import update from 'immutability-helper'
 
 const initialState = {
-  name: '',
-  filename: '',
-  exportSetup: {
-    includeEditionData: true,
-    splitLanguages: false,
-    format: 'json',
+  config: {
+    projectName: '',
+    projectFilename: '',
+    projectSaveSetup: 'mono',
+    projectBaseLanguage: '',
+    projectLanguages: [],
   },
   phrases: [],
-  languages: [],
 }
 
 // TODO:
@@ -41,12 +38,8 @@ export default function projectReducer(state = initialState, action) {
     })
   }
   switch (action.type) {
-    case PROJECT_NAME:
-      return update(state, { $set: { name: action.name } })
-    case PROJECT_FILENAME:
-      return update(state, { $set: { filename: action.filename } })
-    case PROJECT_EXPORT_SETUP:
-      return update(state, { exportSetup: { $merge: action.exportSetup } })
+    case PROJECT_CONFIG:
+      return update(state, { $merge: { config: action.config } })
     default:
       return {
         ...state

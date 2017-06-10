@@ -14,20 +14,20 @@ import createFile from '../utils/file'
 const { app } = require('electron').remote
 
 class DashboardPage extends Component {
-  // TODO:
-  // Add filename generator
   constructor(props) {
     super(props)
     this.state = dashboardDefaultState
     this.saveUsername = this.saveUsername.bind(this)
     this.cleanUsername = this.cleanUsername.bind(this)
+    this.cleanProjects = this.cleanProjects.bind(this)
     this.handleWizardSave = this.handleWizardSave.bind(this)
   }
   componentWillMount() {
     if (app.store.data.projects) {
       // TODO:
-      // Set up a project based on saved data/files
+      // Populate list of saved projects
       console.log(app.store.data.projects)
+      this.props.dispatch(ConfigActions.configSetSavedProjects(app.store.data.projects))
     }
     if (app.store.data.username || this.props.config.username) {
       this.props.dispatch(ConfigActions.configSetUsername(app.store.data.username))
@@ -44,6 +44,10 @@ class DashboardPage extends Component {
     app.store.set('username', '')
     this.props.dispatch(ConfigActions.configSetUsername(''))
   }
+  cleanProjects() {
+    app.store.set('projects', '')
+    this.props.dispatch(ConfigActions.configSetSavedProjects([]))
+  }
   handleWizardSave(event) {
     if (event) {
       event.preventDefault()
@@ -52,27 +56,29 @@ class DashboardPage extends Component {
     this.saveUsername(this.state.username)
     this.setState({ status: 'MainMenu' })
   }
-  handleSubmit(event, data) {
+  handleSubmit(event, data, username = this.props.config.username) {
     if (event) {
       event.preventDefault()
     }
     // TODO:
     // Validation
-    // Create files for the project
-    // Populate project reducer with the configuration
-    // Populate project languages with the base lang
     // Go to workbench
-    createFile(data.projectPath, data.projectFilename, data.projectName)
+    let projects = this.props.config.savedProjects ? this.props.config.savedProjects : []
+    projects.push(data)
+    app.store.set('projects', projects)
+    this.props.dispatch(ProjectActions.projectSetConfig(data))
+    createFile({ ...data, username })
   }
   render() {
     const props = this.props
     const state = this.state
-    const projectsVisibility = this.state.projectsVisible ? styles.dropdownOpen : styles.dropdownClosed
     const renderSection = state.status === 'MainMenu' ?
       (<DashboardProjectWizard
-        projectsVisibility={projectsVisibility}
+        projects={props.config.savedProjects}
         username={this.props.config.username}
-        handleSubmit={this.handleSubmit}
+        handleSubmit={(event, data) => this.handleSubmit(event, data)}
+        cleanProjects={this.cleanProjects}
+        cleanUsername={this.cleanUsername}
       />) :
       (<DashboardUserWizard
         username={this.state.username}

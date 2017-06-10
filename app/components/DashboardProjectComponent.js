@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 class DashboardProjectComponent extends Component {
   render() {
     return (
-      <div>
-        {this.props.project.name}
-        {this.props.id}
+      <div key={this.props.id}>
+        {this.props.project.projectName}
+        {this.props.project.projectBaseLanguage}
       </div>
     )
   }
 }
 
 DashboardProjectComponent.propTypes = {
-  project: PropTypes.shape.isRequired,
+  project: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
 }
 
