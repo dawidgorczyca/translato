@@ -3,10 +3,4 @@ export const dashboardDefaultState = {
   status: 'initialWizard',
   projectsVisible: false,
   projectCreationVisible: false,
-  projectName: '',
-  projectPath: '',
-  projectSaveSetup: 'multi',
-  projectFilename: '',
-  projectIncludeEditData: false,
-  projectBaseLanguage: 'EN',
 }
