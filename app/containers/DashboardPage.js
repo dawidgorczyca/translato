@@ -48,6 +48,9 @@ class DashboardPage extends Component {
     app.store.set('projects', '')
     this.props.dispatch(ConfigActions.configSetSavedProjects([]))
   }
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
   handleWizardSave(event) {
     if (event) {
       event.preventDefault()
@@ -83,9 +86,11 @@ class DashboardPage extends Component {
       (<DashboardUserWizard
         username={this.state.username}
         handleSubmit={this.handleWizardSave}
+        handleChange={(event) => this.handleChange(event)}
       />)
     return (
-      <div>
+      <div className={styles.dashboardPage}>
+        <h1>TRANSLATO</h1>
         {renderSection}
       </div>
     )

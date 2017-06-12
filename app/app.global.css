@@ -1,39 +1,50 @@
 @import "~font-awesome/css/font-awesome.css";
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i|Poppins:400,700&subset=latin-ext');
 
 body {
   position: relative;
-  color: white;
+  color: #7c7c7c;
   height: 100vh;
-  background-color: #232c39;
-  background-image: linear-gradient(45deg, rgba(0, 216, 255, 0.5) 10%, rgba(0, 1, 127, 0.7));
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
+  background-color: white;
   overflow-y: hidden;
+  font-family: 'Crimson Text', serif;
+  font-size: 14px;
 }
 
-h2 {
-  margin: 0;
-  font-size: 2.25rem;
-  font-weight: bold;
-  letter-spacing: -0.025em;
-  color: #fff;
+h1, h2, h3, h4 {
+  color: #a0a0a0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
 }
 
-p {
-  font-size: 24px;
+* {
+  transition-duration: 0.5s;
 }
 
-li {
-  list-style: none;
+input {
+  border: 1px solid #b7b7b7;
+  color: #a0a0a0;
+  font-size: 14px;
+  padding: 10px;
+  font-family: 'Crimson Text';
+}
+input:focus {
+  outline: 2px solid #fcb85f;
+  color: #7c7c7c;
+  border-color: #71fcf3;
 }
 
-a {
-  color: white;
-  opacity: 0.75;
-  text-decoration: none;
+input[type=submit], button {
+  border:1px solid #9ffcf6;
+  background-color: #9ffcf6;
+  color: #2a4947;
 }
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
+input[type=submit]:hover, button:hover {
+  background-color: #84f9f2;
+  border-color: #84f9f2;
   cursor: pointer;
+}
+input[type=submit]:active, button:active {
+  background-color: #79d1c9;
+  border-color: #79d1c9;
 }

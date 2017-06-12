@@ -6,9 +6,15 @@ import styles from '../containers/DashboardPage.css'
 const { app } = require('electron').remote
 
 class DashboardUserWizard extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: '',
+    }
+  }
   render() {
     return (
-      <div className={styles.wizard}>
+      <div className={styles.dashboard__userWizard}>
         <form onSubmit={(event) => this.props.handleSubmit(event)}>
           First, please tell me your name
           <BasicInputComponent
@@ -28,6 +34,12 @@ DashboardUserWizard.propTypes = {
   username: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func,
+}
+
+DashboardUserWizard.defaultProps = {
+  handleChange: function handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
 }
 
 export default DashboardUserWizard

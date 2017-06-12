@@ -36,7 +36,7 @@ class DashboardProjectWizard extends Component {
       />) : ''
     const projects = this.state.projectsVisible ? this.renderExistingProjects() : ''
     return (
-      <div className={styles.mainMenu}>
+      <div className={styles.dashboard__mainMenu}>
         <h2>Hello, {this.props.username}</h2>
         <button onClick={() => this.toggleCreateProjectForm()}>
           New Project
