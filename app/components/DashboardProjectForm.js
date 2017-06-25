@@ -71,17 +71,20 @@ class DashboardProjectForm extends Component {
           value={this.state.projectName}
           onChange={(event) => this.handleChange(event)}
         />
-        <button className={styles.projectCreator_pathButton} onClick={(event) => this.selectProjectPath(event)}>
-          Select folder for your project
-        </button>
-        <span className={styles.projectCreator_path}>
-          {this.state.projectPath}
-        </span>
+        <div className={styles.folderSelection}>
+          <button className={styles.projectCreator_pathButton} onClick={(event) => this.selectProjectPath(event)}>
+            Select folder for your project
+          </button>
+          <span className={styles.projectCreator_path}>
+            {this.state.projectPath}
+          </span>
+        </div>
         <BasicInputComponent
           label="Separate file for each language"
           name="projectSaveSetup"
           type="radio"
           value="multi"
+          wrapperClass="form-split"
           checked={this.state.projectSaveSetup === 'multi'}
           onChange={(event) => this.handleChange(event)}
         />
@@ -90,6 +93,7 @@ class DashboardProjectForm extends Component {
           name="projectSaveSetup"
           type="radio"
           value="mono"
+          wrapperClass="form-split"
           checked={this.state.projectSaveSetup === 'mono'}
           onChange={(event) => this.handleChange(event)}
         />

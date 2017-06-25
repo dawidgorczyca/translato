@@ -12,7 +12,7 @@ function mockCheckboxEventObject(event) {
 }
 const BasicInputComponent = props => {
   return (
-  <div className={classnames('basic-input', props.wrapperClass)}>
+  <div className={classnames('basic-input', props.wrapperClass, `input-${props.type}`)}>
     {(props.label && props.type !== 'checkbox' && props.type !== 'radio' ?
       <label htmlFor={props.name}>{props.label}</label> : ''
     )}

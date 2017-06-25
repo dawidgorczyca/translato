@@ -21,12 +21,13 @@ h1, h2, h3, h4 {
   transition-duration: 0.5s;
 }
 
-input {
+input, select {
   border: 1px solid #b7b7b7;
   color: #a0a0a0;
   font-size: 14px;
   padding: 10px;
   font-family: 'Crimson Text';
+  box-sizing: border-box;
 }
 input:focus {
   outline: 2px solid #fcb85f;
@@ -47,4 +48,22 @@ input[type=submit]:hover, button:hover {
 input[type=submit]:active, button:active {
   background-color: #79d1c9;
   border-color: #79d1c9;
+}
+
+.basic-input, .folderSelection {
+  float: left;
+  width: 100%;
+  margin: 10px 0;
+  text-align: left;
+}
+.input-text input,
+.projectCreator .input-text label,
+.input-select select,
+.input-select label {
+  float: left;
+  width: 100%;
+}
+.form-split {
+  float: left;
+  width: 50%;
 }
