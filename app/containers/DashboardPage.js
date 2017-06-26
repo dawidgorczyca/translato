@@ -17,10 +17,10 @@ class DashboardPage extends Component {
   constructor(props) {
     super(props)
     this.state = dashboardDefaultState
-    this.saveUsername = this.saveUsername.bind(this)
-    this.cleanUsername = this.cleanUsername.bind(this)
+    this.setUsername = this.setUsername.bind(this)
     this.cleanProjects = this.cleanProjects.bind(this)
     this.handleWizardSave = this.handleWizardSave.bind(this)
+    this.loadProject = this.loadProject.bind(this)
   }
   componentWillMount() {
     if (app.store.data.projects) {
@@ -34,15 +34,10 @@ class DashboardPage extends Component {
       this.setState({ status: 'MainMenu' })
     }
   }
-  saveUsername(username) {
+  setUsername(username) {
     this.setState({ username: username })
     app.store.set('username', username)
     this.props.dispatch(ConfigActions.configSetUsername(username))
-  }
-  cleanUsername() {
-    this.setState({ username: '' })
-    app.store.set('username', '')
-    this.props.dispatch(ConfigActions.configSetUsername(''))
   }
   cleanProjects() {
     app.store.set('projects', '')
@@ -56,7 +51,7 @@ class DashboardPage extends Component {
       event.preventDefault()
     }
     // TODO: Validation
-    this.saveUsername(this.state.username)
+    this.setUsername(this.state.username)
     this.setState({ status: 'MainMenu' })
   }
   handleSubmit(event, data, username = this.props.config.username) {
@@ -65,12 +60,17 @@ class DashboardPage extends Component {
     }
     // TODO:
     // Validation
-    // Go to workbench
     let projects = this.props.config.savedProjects ? this.props.config.savedProjects : []
     projects.push(data)
     app.store.set('projects', projects)
     this.props.dispatch(ProjectActions.projectSetConfig(data))
     createFile({ ...data, username })
+    this.props.history.push('/workbench')
+  }
+  loadProject(index) {
+    const selectedProject = this.props.config.savedProjects[index]
+    this.props.dispatch(ProjectActions.projectSetConfig(selectedProject))
+    this.props.history.push('/workbench')
   }
   render() {
     const props = this.props
@@ -80,6 +80,7 @@ class DashboardPage extends Component {
         projects={props.config.savedProjects}
         username={this.props.config.username}
         handleSubmit={(event, data) => this.handleSubmit(event, data)}
+        loadProject={this.loadProject}
         cleanProjects={this.cleanProjects}
         cleanUsername={this.cleanUsername}
       />) :
@@ -99,6 +100,7 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {

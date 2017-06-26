@@ -24,7 +24,7 @@ class DashboardProjectWizard extends Component {
   renderExistingProjects() {
     return (
       this.props.projects.map((item, index) =>
-        <DashboardProjectComponent project={item} id={index} />
+        <DashboardProjectComponent project={item} id={index} loadProject={this.props.loadProject} />
       )
     )
   }
@@ -46,7 +46,7 @@ class DashboardProjectWizard extends Component {
           Open project
         </button>
         {projects}
-        <button onClick={() => this.props.cleanUsername()}>Clean username</button>
+        <button onClick={() => this.props.setUsername('')}>Clean username</button>
         <button onClick={() => this.props.cleanProjects()}>Clean projects</button>
       </div>
     )
@@ -56,10 +56,11 @@ class DashboardProjectWizard extends Component {
 DashboardProjectWizard.propTypes = {
   username: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  cleanUsername: PropTypes.func,
+  setUsername: PropTypes.func,
   cleanProjects: PropTypes.func,
   handleChange: PropTypes.func,
   projects: PropTypes.arrayOf(PropTypes.object),
+  loadProject: PropTypes.func.isRequired,
 }
 
 export default DashboardProjectWizard
