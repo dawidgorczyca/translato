@@ -8,3 +8,7 @@ export function deepCopy(oldObj) {
   }
   return newObj
 }
+
+export function objToArr(obj) {
+  return Object.keys(obj).map((key) => obj[key])
+}

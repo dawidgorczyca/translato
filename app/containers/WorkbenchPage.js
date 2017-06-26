@@ -2,22 +2,19 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as ProjectActions from '../actions/projectActions'
-import * as ConfigActions from '../actions/configActions'
-import * as PhraseActions from '../actions/phraseActions'
-import BasicInputComponent from '../components/BasicInputComponent'
 import styles from './WorkbenchPage.css'
 import TopBarComponent from '../components/TopBarComponent'
 import BottomBarComponent from '../components/BottomBarComponent'
 import WorkbenchLanguages from '../components/WorkbenchLanguages'
 import { createFile } from '../utils/file'
-
-const { app } = require('electron').remote
+import { projectDefaultState } from '../statics/TypesAndDefaults'
 
 class WorkbenchPage extends Component {
   constructor(props) {
     super(props)
     this.state = {}
     this.addLanguage = this.addLanguage.bind(this)
+    this.deleteLanguage = this.deleteLanguage.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.project !== this.props.project) {
@@ -30,9 +27,12 @@ class WorkbenchPage extends Component {
   addLanguage(language) {
     this.props.dispatch(ProjectActions.projectAddLanguage(language))
   }
+  deleteLanguage(index) {
+    console.log(index)
+    this.props.dispatch(ProjectActions.projectDeleteLanguage(index))
+  }
   render() {
     const props = this.props
-    const state = this.state
     return (
       <div className={styles.workbenchPage}>
         <TopBarComponent projectName={props.project.config.projectName} />
@@ -40,6 +40,7 @@ class WorkbenchPage extends Component {
           projectBaseLanguage={props.project.config.projectBaseLanguage}
           projectLanguages={props.project.config.languages}
           addLanguage={(language) => this.addLanguage(language)}
+          deleteLanguage={(index) => this.deleteLanguage(index)}
         />
         <BottomBarComponent />
       </div>
@@ -49,6 +50,7 @@ class WorkbenchPage extends Component {
 
 WorkbenchPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  project: PropTypes.shape(projectDefaultState).isRequired,
 }
 
 const mapStateToProps = (state) => {

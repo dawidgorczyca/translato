@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as ProjectActions from '../actions/projectActions'
 import * as ConfigActions from '../actions/configActions'
-import DashboardProjectComponent from '../components/DashboardProjectComponent'
 import DashboardUserWizard from '../components/DashboardUserWizard'
 import DashboardProjectWizard from '../components/DashboardProjectWizard'
-import BasicInputComponent from '../components/BasicInputComponent'
-import { dashboardDefaultState } from '../statics/TypesAndDefaults'
+import { dashboardDefaultState, configDefaultState } from '../statics/TypesAndDefaults'
 import styles from './DashboardPage.css'
 import { createFile, checkFile, readFile } from '../utils/file'
+import { objToArr } from '../utils/helpers'
 
 const { app } = require('electron').remote
 
@@ -19,7 +18,7 @@ class DashboardPage extends Component {
     this.state = dashboardDefaultState
     this.setUsername = this.setUsername.bind(this)
     this.cleanProjects = this.cleanProjects.bind(this)
-    this.handleWizardSave = this.handleWizardSave.bind(this)
+    this.handleUsernameSave = this.handleUsernameSave.bind(this)
     this.loadProject = this.loadProject.bind(this)
   }
   componentWillMount() {
@@ -29,6 +28,10 @@ class DashboardPage extends Component {
       this.setState({ status: 'MainMenu' })
     }
   }
+  cleanProjects() {
+    app.store.set('projects', '')
+    this.props.dispatch(ConfigActions.configSetSavedProjects([]))
+  }
   checkIfProjectsExists() {
     if (app.store.data.projects) {
       const projects = app.store.data.projects
@@ -37,7 +40,7 @@ class DashboardPage extends Component {
           projects.splice(index, 1)
         } else {
           const projectData = JSON.parse(readFile(`${item.projectPath}/${item.projectFilename}.json`))
-          projectData.config.languages = Object.keys(projectData.config.languages).map((key) => projectData.config.languages[key])
+          projectData.config.languages = objToArr(projectData.config.languages)
           projects[index] = projectData.config
         }
       })
@@ -50,14 +53,10 @@ class DashboardPage extends Component {
     app.store.set('username', username)
     this.props.dispatch(ConfigActions.configSetUsername(username))
   }
-  cleanProjects() {
-    app.store.set('projects', '')
-    this.props.dispatch(ConfigActions.configSetSavedProjects([]))
-  }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
-  handleWizardSave(event) {
+  handleUsernameSave(event) {
     if (event) {
       event.preventDefault()
     }
@@ -71,7 +70,7 @@ class DashboardPage extends Component {
     }
     // TODO:
     // Validation
-    let projects = this.props.config.savedProjects ? this.props.config.savedProjects : []
+    const projects = this.props.config.savedProjects ? this.props.config.savedProjects : []
     projects.push(data)
     app.store.set('projects', projects)
     this.props.dispatch(ProjectActions.projectSetConfig(data))
@@ -80,7 +79,6 @@ class DashboardPage extends Component {
   }
   loadProject(index) {
     const selectedProject = this.props.config.savedProjects[index]
-    console.log(selectedProject)
     this.props.dispatch(ProjectActions.projectSetConfig(selectedProject))
     this.props.history.push('/workbench')
   }
@@ -99,7 +97,7 @@ class DashboardPage extends Component {
       />) :
       (<DashboardUserWizard
         username={this.state.username}
-        handleSubmit={this.handleWizardSave}
+        handleSubmit={this.handleUsernameSave}
         handleChange={(event) => this.handleChange(event)}
       />)
     return (
@@ -114,6 +112,7 @@ class DashboardPage extends Component {
 DashboardPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  config: PropTypes.shape(configDefaultState).isRequired,
 }
 
 const mapStateToProps = (state) => {

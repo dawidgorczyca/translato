@@ -3,13 +3,9 @@ import {
   CONFIG_SAVED_PROJECTS,
 } from '../actions/configActions'
 import update from 'immutability-helper'
+import { configDefaultState } from '../statics/TypesAndDefaults'
 
-const initialState = {
-  username: '',
-  savedProjects: [],
-}
-
-export default function configReducer(state = initialState, action) {
+export default function configReducer(state = configDefaultState, action) {
   switch (action.type) {
     case CONFIG_USERNAME:
       return update(state, { $merge: { username: action.username } })

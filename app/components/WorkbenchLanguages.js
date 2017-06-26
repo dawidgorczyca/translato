@@ -2,21 +2,35 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import BasicInputComponent from '../components/BasicInputComponent'
 import styles from '../containers/WorkbenchPage.css'
+import { projectDefaultState } from '../statics/TypesAndDefaults'
 
 class WorkbenchLanguages extends Component {
   renderLanguages(base, languages) {
-    console.log(languages)
     let list = [base]
 
     if (languages) list = list.concat(languages)
-    console.log(list)
     return list.map((item, index) => {
       if (typeof item === 'object') {
-        return <span key={index} className={styles.workBench__lang}>{item.name}</span>
-      } else {
-        return <span key={index} className={styles.workBench__lang}>{item}</span>
+        return (
+          <span
+            key={index}
+            className={styles.workBench__lang}
+            onClick={() => this.props.deleteLanguage(index)}
+          >
+            {item.name}
+          </span>
+        )
       }
-    }) 
+      return (
+        <span
+          key={index}
+          className={styles.workBench__lang}
+          onClick={() => this.props.deleteLanguage(index)}
+        >
+          {item}
+        </span>
+      )
+    })
   }
   render() {
     const { projectBaseLanguage, projectLanguages, addLanguage } = this.props
@@ -36,10 +50,13 @@ class WorkbenchLanguages extends Component {
 
 WorkbenchLanguages.propTypes = {
   projectBaseLanguage: PropTypes.string.isRequired,
-  projectLanguages: PropTypes.array,
+  projectLanguages: PropTypes.arrayOf(projectDefaultState),
   addLanguage: PropTypes.func.isRequired,
+  deleteLanguage: PropTypes.func.isRequired,
 }
 
-WorkbenchLanguages.defaultProps = {}
+WorkbenchLanguages.defaultProps = {
+  projectLanguages: []
+}
 
 export default WorkbenchLanguages
