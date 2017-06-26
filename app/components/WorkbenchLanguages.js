@@ -4,10 +4,6 @@ import BasicInputComponent from '../components/BasicInputComponent'
 import styles from '../containers/WorkbenchPage.css'
 
 class WorkbenchLanguages extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
   renderLanguages(base, languages) {
     let list = [base]
 

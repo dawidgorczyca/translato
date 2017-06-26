@@ -41,7 +41,7 @@ export default function projectReducer(state = initialState, action) {
   }
   switch (action.type) {
     case LANGUAGE_ADD:
-      return update(state, { languages: { $push: [action.language] } })
+      return update(state, { config: { languages: { $push: [action.language] } } })
     case LANGUAGE_DELETE:
       return update(state, { languages: { $splice: [action.index, 1] } })
     case PROJECT_CONFIG:

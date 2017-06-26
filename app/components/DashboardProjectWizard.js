@@ -24,7 +24,7 @@ class DashboardProjectWizard extends Component {
   }
   renderExistingProjects() {
     const elements = this.props.projects.map((item, index) =>
-      <DashboardProjectComponent project={item} id={index} loadProject={this.props.loadProject} />
+      <DashboardProjectComponent project={item} id={index} loadProject={this.props.loadProject} key={index} />
     ) 
     return (
       <ul className={styles.projectsList}>
