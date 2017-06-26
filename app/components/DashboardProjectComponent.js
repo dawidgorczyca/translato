@@ -5,10 +5,13 @@ class DashboardProjectComponent extends Component {
   render() {
     const { project, loadProject, id } = this.props
     return (
-      <div key={id} onClick={() => loadProject(id)} >
-        {project.projectName}
-        {project.projectBaseLanguage}
-      </div>
+      <li key={id} >
+        <span>
+          {project.projectName}
+          {project.projectBaseLanguage}
+        </span>
+        <button onClick={() => loadProject(id)}>OPEN</button>
+      </li>
     )
   }
 }

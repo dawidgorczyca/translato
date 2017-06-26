@@ -24,11 +24,12 @@
   margin: 10px 25%;
   padding: 15px;
 }
-.projectCreator {
+.projectCreator, .projectsList {
   max-width: 600px;
   margin: 0px auto;
   padding: 0 0 20px 0;
   text-align: center;
+  list-style: none;
 }
 .folderSelection {
   float: left;
@@ -51,4 +52,33 @@
 .buttonSubmit {
   margin-top: 10px;
   min-width: 200px;
+}
+.projectsList li {
+  float: left;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.projectsList li span {
+  float: left;
+  width: 70%;
+  margin: 0;
+  line-height: 45px;
+}
+.projectsList li button {
+  float: left;
+  width: 30%;
+  margin: 0;
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
+}
+.projectsList li:hover {
+  border-color: #84f9f2;
+  color: #79d1c9;
+}
+.projectsList li button:hover {
+  background-color: #84f9f2;
+  border-color: #84f9f2;
 }

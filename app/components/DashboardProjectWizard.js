@@ -22,10 +22,13 @@ class DashboardProjectWizard extends Component {
     this.setState({ projectCreationVisible: !this.state.projectCreationVisible })
   }
   renderExistingProjects() {
+    const elements = this.props.projects.map((item, index) =>
+      <DashboardProjectComponent project={item} id={index} loadProject={this.props.loadProject} />
+    ) 
     return (
-      this.props.projects.map((item, index) =>
-        <DashboardProjectComponent project={item} id={index} loadProject={this.props.loadProject} />
-      )
+      <ul className={styles.projectsList}>
+        {elements}
+      </ul>
     )
   }
   render() {
