@@ -12,9 +12,12 @@ import { projectDefaultState } from '../statics/TypesAndDefaults'
 class WorkbenchPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      languageAdd: 'en'
+    }
     this.addLanguage = this.addLanguage.bind(this)
     this.deleteLanguage = this.deleteLanguage.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.project !== this.props.project) {
@@ -22,6 +25,7 @@ class WorkbenchPage extends Component {
     }
   }
   handleChange(event) {
+    console.log(event.target.name, event.target.value)
     this.setState({ [event.target.name]: event.target.value })
   }
   addLanguage(language) {
@@ -41,6 +45,8 @@ class WorkbenchPage extends Component {
           projectLanguages={props.project.config.languages}
           addLanguage={(language) => this.addLanguage(language)}
           deleteLanguage={(index) => this.deleteLanguage(index)}
+          handleChange={(event) => this.handleChange(event)}
+          languageAdd={this.state.languageAdd}
         />
         <BottomBarComponent />
       </div>
