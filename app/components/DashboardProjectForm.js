@@ -15,6 +15,7 @@ class DashboardProjectForm extends Component {
       projectSaveSetup: 'multi',
       projectFilename: '',
       projectBaseLanguage: 'en',
+      languages: [],
     }
   }
   selectProjectPath(event) {

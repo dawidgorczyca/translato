@@ -17,6 +17,7 @@ class DashboardProjectWizard extends Component {
   }
   toggleExistingProjects() {
     this.setState({ projectsVisible: !this.state.projectsVisible })
+    this.props.checkIfProjectsExists()
   }
   toggleCreateProjectForm() {
     this.setState({ projectCreationVisible: !this.state.projectCreationVisible })
@@ -64,6 +65,7 @@ DashboardProjectWizard.propTypes = {
   handleChange: PropTypes.func,
   projects: PropTypes.arrayOf(PropTypes.object),
   loadProject: PropTypes.func.isRequired,
+  checkIfProjectsExists: PropTypes.func.isRequired,
 }
 
 export default DashboardProjectWizard

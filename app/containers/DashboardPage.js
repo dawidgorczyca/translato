@@ -9,7 +9,7 @@ import DashboardProjectWizard from '../components/DashboardProjectWizard'
 import BasicInputComponent from '../components/BasicInputComponent'
 import { dashboardDefaultState } from '../statics/TypesAndDefaults'
 import styles from './DashboardPage.css'
-import createFile from '../utils/file'
+import { createFile, checkFile } from '../utils/file'
 
 const { app } = require('electron').remote
 
@@ -23,15 +23,26 @@ class DashboardPage extends Component {
     this.loadProject = this.loadProject.bind(this)
   }
   componentWillMount() {
+    this.checkIfProjectsExists()
+    if (app.store.data.username || this.props.config.username) {
+      this.props.dispatch(ConfigActions.configSetUsername(app.store.data.username))
+      this.setState({ status: 'MainMenu' })
+    }
+  }
+  checkIfProjectsExists() {
     if (app.store.data.projects) {
+      const projects = app.store.data.projects
+      app.store.data.projects.forEach((item, index) => {
+        if (!checkFile(`${item.projectPath}/${item.projectFilename}.json`)) {
+          projects.splice(index, 1)
+        }
+      })
+      app.store.set('projects', projects)
+
       // TODO:
       // Populate list of saved projects
       console.log(app.store.data.projects)
       this.props.dispatch(ConfigActions.configSetSavedProjects(app.store.data.projects))
-    }
-    if (app.store.data.username || this.props.config.username) {
-      this.props.dispatch(ConfigActions.configSetUsername(app.store.data.username))
-      this.setState({ status: 'MainMenu' })
     }
   }
   setUsername(username) {
@@ -83,6 +94,7 @@ class DashboardPage extends Component {
         loadProject={this.loadProject}
         cleanProjects={this.cleanProjects}
         cleanUsername={this.cleanUsername}
+        checkIfProjectsExists={() => this.checkIfProjectsExists()}
       />) :
       (<DashboardUserWizard
         username={this.state.username}
@@ -100,7 +112,7 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => {

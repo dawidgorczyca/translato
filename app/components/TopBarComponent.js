@@ -4,8 +4,6 @@ import BasicInputComponent from '../components/BasicInputComponent'
 import styles from '../containers/WorkbenchPage.css'
 import { Link } from 'react-router-dom'
 
-const { app } = require('electron').remote
-
 // TODO: Search
 
 class TopBarComponent extends Component {

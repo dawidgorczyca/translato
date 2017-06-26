@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router'
 import DashboardPage from './DashboardPage'
-import CounterPage from './CounterPage'
 import WorkbenchPage from './WorkbenchPage'
 
 export default class App extends Component {
