@@ -5,6 +5,7 @@ import {
 import phraseReducer from './phraseReducer'
 import languageReducer from './languageReducer'
 import update from 'immutability-helper'
+import { createFile } from '../utils/file'
 
 const initialState = {
   config: {
@@ -43,7 +44,7 @@ export default function projectReducer(state = initialState, action) {
     case LANGUAGE_ADD:
       return update(state, { config: { languages: { $push: [action.language] } } })
     case LANGUAGE_DELETE:
-      return update(state, { languages: { $splice: [action.index, 1] } })
+      return update(state, { config: { languages: { $splice: [action.index, 1] } } })
     case PROJECT_CONFIG:
       return update(state, { $merge: { config: action.config } })
     default:

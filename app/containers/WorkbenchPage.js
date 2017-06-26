@@ -9,6 +9,7 @@ import styles from './WorkbenchPage.css'
 import TopBarComponent from '../components/TopBarComponent'
 import BottomBarComponent from '../components/BottomBarComponent'
 import WorkbenchLanguages from '../components/WorkbenchLanguages'
+import { createFile } from '../utils/file'
 
 const { app } = require('electron').remote
 
@@ -18,7 +19,10 @@ class WorkbenchPage extends Component {
     this.state = {}
     this.addLanguage = this.addLanguage.bind(this)
   }
-  componentWillMount() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.project !== this.props.project) {
+      createFile(nextProps.project.config, nextProps.project.phrases)
+    }
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })

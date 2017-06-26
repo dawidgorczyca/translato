@@ -9,7 +9,7 @@ import DashboardProjectWizard from '../components/DashboardProjectWizard'
 import BasicInputComponent from '../components/BasicInputComponent'
 import { dashboardDefaultState } from '../statics/TypesAndDefaults'
 import styles from './DashboardPage.css'
-import { createFile, checkFile } from '../utils/file'
+import { createFile, checkFile, readFile } from '../utils/file'
 
 const { app } = require('electron').remote
 
@@ -35,13 +35,13 @@ class DashboardPage extends Component {
       app.store.data.projects.forEach((item, index) => {
         if (!checkFile(`${item.projectPath}/${item.projectFilename}.json`)) {
           projects.splice(index, 1)
+        } else {
+          const projectData = JSON.parse(readFile(`${item.projectPath}/${item.projectFilename}.json`))
+          projectData.config.languages = Object.keys(projectData.config.languages).map((key) => projectData.config.languages[key])
+          projects[index] = projectData.config
         }
       })
       app.store.set('projects', projects)
-
-      // TODO:
-      // Populate list of saved projects
-      console.log(app.store.data.projects)
       this.props.dispatch(ConfigActions.configSetSavedProjects(app.store.data.projects))
     }
   }
@@ -80,6 +80,7 @@ class DashboardPage extends Component {
   }
   loadProject(index) {
     const selectedProject = this.props.config.savedProjects[index]
+    console.log(selectedProject)
     this.props.dispatch(ProjectActions.projectSetConfig(selectedProject))
     this.props.history.push('/workbench')
   }
