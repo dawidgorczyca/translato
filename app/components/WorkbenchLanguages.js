@@ -5,13 +5,18 @@ import styles from '../containers/WorkbenchPage.css'
 
 class WorkbenchLanguages extends Component {
   renderLanguages(base, languages) {
+    console.log(languages)
     let list = [base]
 
-    if (languages) list.concat(languages)
-
-    return list.map((item, index) => 
-      <span key={index} className={styles.workBench__lang}>{item}</span>
-    ) 
+    if (languages) list = list.concat(languages)
+    console.log(list)
+    return list.map((item, index) => {
+      if (typeof item === 'object') {
+        return <span key={index} className={styles.workBench__lang}>{item.name}</span>
+      } else {
+        return <span key={index} className={styles.workBench__lang}>{item}</span>
+      }
+    }) 
   }
   render() {
     const { projectBaseLanguage, projectLanguages, addLanguage } = this.props

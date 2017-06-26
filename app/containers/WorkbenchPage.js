@@ -34,7 +34,7 @@ class WorkbenchPage extends Component {
         <TopBarComponent projectName={props.project.config.projectName} />
         <WorkbenchLanguages
           projectBaseLanguage={props.project.config.projectBaseLanguage}
-          projectLanguages={props.project.config.projectLanguages}
+          projectLanguages={props.project.config.languages}
           addLanguage={(language) => this.addLanguage(language)}
         />
         <BottomBarComponent />
