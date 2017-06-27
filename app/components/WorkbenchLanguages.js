@@ -59,7 +59,7 @@ class WorkbenchLanguages extends Component {
 
 WorkbenchLanguages.propTypes = {
   projectBaseLanguage: PropTypes.string.isRequired,
-  projectLanguages: PropTypes.arrayOf(projectDefaultState),
+  projectLanguages: PropTypes.array,
   addLanguage: PropTypes.func.isRequired,
   deleteLanguage: PropTypes.func.isRequired,
   languageAdd: PropTypes.string.isRequired,

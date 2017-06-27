@@ -9,18 +9,9 @@ import {
   PHRASE_SECTION,
 } from '../actions/phraseActions'
 import update from 'immutability-helper'
+import { phraseDefaultState } from '../statics/TypesAndDefaults'
 
-const initialState = {
-  name: '',
-  languages: [],
-  dateAdded: '',
-  dateModified: '',
-  author: '',
-  status: 0,
-  maxLength: 0,
-}
-
-export default function phraseReducer(state = initialState, action) {
+export default function phraseReducer(state = phraseDefaultState, action) {
   switch (action.type) {
     case PHRASE_NAME:
       return update(state, { $set: { name: action.name } })

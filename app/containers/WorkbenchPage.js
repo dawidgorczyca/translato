@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as ProjectActions from '../actions/projectActions'
+import * as LanguageActions from '../actions/languageActions'
 import styles from './WorkbenchPage.css'
 import TopBarComponent from '../components/TopBarComponent'
 import BottomBarComponent from '../components/BottomBarComponent'
 import WorkbenchLanguages from '../components/WorkbenchLanguages'
+import WorkbenchPhrases from '../components/WorkbenchPhrases'
 import { createFile } from '../utils/file'
-import { projectDefaultState } from '../statics/TypesAndDefaults'
+import { deepCopy, getDateTime } from '../utils/helpers'
+import { projectDefaultState, phraseDefaultState } from '../statics/TypesAndDefaults'
 
 class WorkbenchPage extends Component {
   constructor(props) {
@@ -18,6 +21,7 @@ class WorkbenchPage extends Component {
     this.addLanguage = this.addLanguage.bind(this)
     this.deleteLanguage = this.deleteLanguage.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.addPhrase = this.addPhrase.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.project !== this.props.project) {
@@ -25,15 +29,30 @@ class WorkbenchPage extends Component {
     }
   }
   handleChange(event) {
-    console.log(event.target.name, event.target.value)
     this.setState({ [event.target.name]: event.target.value })
   }
   addLanguage(language) {
     this.props.dispatch(ProjectActions.projectAddLanguage(language))
   }
   deleteLanguage(index) {
-    console.log(index)
     this.props.dispatch(ProjectActions.projectDeleteLanguage(index))
+  }
+  // TODO:
+  // Translation should be based on BindIndexActionCreator
+  // Which means that they should be plugged into phrase in the phrase component
+  addPhrase() {
+    const newPhrase = deepCopy(phraseDefaultState)
+    newPhrase.languages.push(this.props.project.config.projectBaseLanguage)
+    this.props.project.config.languages.forEach((item) => {
+      newPhrase.languages.push(item.name)
+      this.props.dispatch(LanguageActions.langTranslationAdd({
+        phraseIndex: this.props.project.phrases.length,
+        content: '',
+      }))
+    })
+    newPhrase.author = this.props.config.username
+    newPhrase.dateAdded = getDateTime()
+    this.props.dispatch(ProjectActions.projectAddPhrase(newPhrase))
   }
   render() {
     const props = this.props
@@ -48,6 +67,10 @@ class WorkbenchPage extends Component {
           handleChange={(event) => this.handleChange(event)}
           languageAdd={this.state.languageAdd}
         />
+        <WorkbenchPhrases
+          phrases={props.project.phrases}
+          addPhrase={() => this.addPhrase()}
+        />
         <BottomBarComponent />
       </div>
     )
@@ -57,6 +80,7 @@ class WorkbenchPage extends Component {
 WorkbenchPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   project: PropTypes.shape(projectDefaultState).isRequired,
+  config: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => {

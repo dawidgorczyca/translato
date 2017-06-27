@@ -1,18 +1,15 @@
 import {
   LANG_NAME,
+  TRANSLATION_ADD,
 } from '../actions/languageActions'
 import translationReducer from './translationReducer'
 import update from 'immutability-helper'
-
-const initialState = {
-  name: '',
-  translations: [],
-}
+import { languageDefaultState } from '../statics/TypesAndDefaults'
 
 // TODO:
 // Add/delete translation action
 
-export default function languageReducer(state = initialState, action) {
+export default function languageReducer(state = languageDefaultState, action) {
   if (action.type.startsWith('translations/')) {
     return update(state, {
       translations: { $set: [
@@ -25,6 +22,8 @@ export default function languageReducer(state = initialState, action) {
   switch (action.type) {
     case LANG_NAME:
       return update(state, { $set: { name: action.name } })
+    case TRANSLATION_ADD:
+      return update(state, { translations: { $push: [action.translation] } })
     default:
       return {
         ...state

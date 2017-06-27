@@ -17,3 +17,18 @@ export const configDefaultState = {
   username: '',
   savedProjects: [],
 }
+
+export const languageDefaultState = {
+  name: '',
+  translations: [],
+}
+
+export const phraseDefaultState = {
+  name: '',
+  languages: [],
+  dateAdded: '',
+  dateModified: '',
+  author: '',
+  status: 0,
+  maxLength: 0,
+}
