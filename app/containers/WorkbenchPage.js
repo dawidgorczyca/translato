@@ -90,6 +90,9 @@ class WorkbenchPage extends Component {
   checkForTranslation(langIndex, transIndex) {
     return !!this.props.project.config.languages[langIndex][transIndex]
   }
+  // TODO:
+  // -Load existing phrases and translations on project enter
+  // -Flush project when going to main menu
   render() {
     const props = this.props
     return (
