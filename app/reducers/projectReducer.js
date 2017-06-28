@@ -12,7 +12,6 @@ import { projectDefaultState } from '../statics/TypesAndDefaults'
 // Add/delete language/phrase action
 
 export default function projectReducer(state = projectDefaultState, action) {
-  console.log(action)
   if (action.type.startsWith('phrases/')) {
     return update(state, {
       phrases: { $set: [
