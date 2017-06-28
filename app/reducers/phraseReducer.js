@@ -1,6 +1,6 @@
 import {
   PHRASE_NAME,
-  PHRASE_LANGUAGES,
+  PHRASE_LANGUAGE,
   PHRASE_DATE_ADDED,
   PHRASE_DATE_MODIFIED,
   PHRASE_AUTHOR,
@@ -15,7 +15,7 @@ export default function phraseReducer(state = phraseDefaultState, action) {
   switch (action.type) {
     case PHRASE_NAME:
       return update(state, { $set: { name: action.name } })
-    case PHRASE_LANGUAGES:
+    case PHRASE_LANGUAGE:
       return update(state, { languages: { $set: action.languages } })
     case PHRASE_DATE_ADDED:
       return update(state, { $set: { dateAdded: action.date } })

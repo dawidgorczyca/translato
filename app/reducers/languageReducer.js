@@ -10,12 +10,12 @@ import { languageDefaultState } from '../statics/TypesAndDefaults'
 // Add/delete translation action
 
 export default function languageReducer(state = languageDefaultState, action) {
-  if (action.type.startsWith('translations/')) {
+  if (action.type.endsWith('/translations')) {
     return update(state, {
       translations: { $set: [
-        ...state.translations.slice(0, action.index),
-        translationReducer(state.translations[action.index], action),
-        ...state.translations.slice(action.index + 1)
+        ...state.translations.slice(0, action.transIndex),
+        translationReducer(state.translations[action.transIndex], action),
+        ...state.translations.slice(action.transIndex + 1)
       ] }
     })
   }

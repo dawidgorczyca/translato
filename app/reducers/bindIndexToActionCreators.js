@@ -1,6 +1,5 @@
-// @flow
 const transformObjectValues = (obj, fn) => {
-  let transformed = {}
+  var transformed = {}
   Object.keys(obj).forEach(key => {
     transformed[key] = fn(obj[key])
   })
@@ -8,12 +7,12 @@ const transformObjectValues = (obj, fn) => {
 }
 
 const bindActionCreator = (actionCreator, index) =>
-  (...args: any) => Object.assign(actionCreator(...args), { index })
+  (...args) => Object.assign(actionCreator(...args), { index })
 
 const bindActionCreatorMap = (creators, index) =>
   transformObjectValues(creators, actionCreator => bindActionCreator(actionCreator, index))
 
-const bindIndexToActionCreators = (actionCreators: Function, index: number) => {
+const bindIndexToActionCreators = (actionCreators, index) => {
   return typeof actionCreators === 'function'
     ? bindActionCreator(actionCreators, index)
     : bindActionCreatorMap(actionCreators, index)

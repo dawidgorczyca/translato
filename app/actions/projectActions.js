@@ -5,6 +5,7 @@ export const LANGUAGE_ADD = 'LANGUAGE_ADD'
 export const LANGUAGE_DELETE = 'LANGUAGE_DELETE'
 export const PHRASE_ADD = 'PHRASE_ADD'
 
+
 export const projectSetConfig = (config) => {
   return ({
     type: PROJECT_CONFIG,

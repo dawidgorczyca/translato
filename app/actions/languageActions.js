@@ -1,5 +1,5 @@
-export const LANG_NAME = 'LANG_NAME'
-export const TRANSLATION_ADD = 'TRANSLATION_ADD'
+export const LANG_NAME = 'languages/LANG_NAME'
+export const TRANSLATION_ADD = 'languages/TRANSLATION_ADD'
 
 export const langSetName = (name) => {
   return ({
@@ -8,6 +8,7 @@ export const langSetName = (name) => {
   })
 }
 
+// TODO: Sync languages list for phrases if user chooses to
 export const langTranslationAdd = (translation) => {
   return ({
     type: TRANSLATION_ADD,

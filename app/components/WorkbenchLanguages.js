@@ -6,11 +6,8 @@ import { projectDefaultState } from '../statics/TypesAndDefaults'
 import languages from '../statics/languages'
 
 class WorkbenchLanguages extends Component {
-  renderLanguages(base, projectLanguages) {
-    let list = [base]
-
-    if (projectLanguages) list = list.concat(projectLanguages)
-    return list.map((item, index) => {
+  renderLanguages(projectLanguages) {
+    return projectLanguages.map((item, index) => {
       if (typeof item === 'object') {
         return (
           <span
@@ -35,7 +32,7 @@ class WorkbenchLanguages extends Component {
   }
   render() {
     const { projectBaseLanguage, projectLanguages, addLanguage } = this.props
-    const langs = projectLanguages ? this.renderLanguages(projectBaseLanguage, projectLanguages) : this.renderLanguages(projectBaseLanguage)
+    const langs = projectLanguages ? this.renderLanguages(projectLanguages) : this.renderLanguages(projectBaseLanguage)
     return (
       <div className={styles.workBench__langBar}>
         {langs}

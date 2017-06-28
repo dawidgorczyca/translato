@@ -1,7 +1,7 @@
 import {
   TRANS_PHRASE_INDEX,
   TRANS_CONTENT,
-} from '../actions/phraseActions'
+} from '../actions/translationActions'
 import update from 'immutability-helper'
 
 const initialState = {
@@ -14,7 +14,7 @@ export default function translationReducer(state = initialState, action) {
     case TRANS_PHRASE_INDEX:
       return update(state, { $set: { phraseIndex: action.phraseIndex } })
     case TRANS_CONTENT:
-      return update(state, { $set: { content: action.content } })
+      return update(state, { content: { $set: action.content } })
     default:
       return {
         ...state

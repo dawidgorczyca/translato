@@ -12,6 +12,7 @@ import { projectDefaultState } from '../statics/TypesAndDefaults'
 // Add/delete language/phrase action
 
 export default function projectReducer(state = projectDefaultState, action) {
+  console.log(action)
   if (action.type.startsWith('phrases/')) {
     return update(state, {
       phrases: { $set: [
@@ -24,9 +25,9 @@ export default function projectReducer(state = projectDefaultState, action) {
   if (action.type.startsWith('languages/')) {
     return update(state, { config: {
       languages: { $set: [
-        ...state.languages.slice(0, action.index),
-        languageReducer(state.languages[action.index], action),
-        ...state.languages.slice(action.index + 1)
+        ...state.config.languages.slice(0, action.index),
+        languageReducer(state.config.languages[action.index], action),
+        ...state.config.languages.slice(action.index + 1)
       ] } }
     })
   }
@@ -34,7 +35,7 @@ export default function projectReducer(state = projectDefaultState, action) {
     case LANGUAGE_ADD:
       return update(state, { config: { languages: { $push: [action.language] } } })
     case LANGUAGE_DELETE:
-      return update(state, { config: { languages: { $splice: [[action.index - 1, 1]] } } })
+      return update(state, { config: { languages: { $splice: [[action.index, 1]] } } })
     case PROJECT_CONFIG:
       return update(state, { $merge: { config: action.config } })
     case PHRASE_ADD:

@@ -73,6 +73,7 @@ class DashboardPage extends Component {
     const projects = this.props.config.savedProjects ? this.props.config.savedProjects : []
     projects.push(data)
     app.store.set('projects', projects)
+    data.languages.push({ name: data.projectBaseLanguage, translations: [] })
     this.props.dispatch(ProjectActions.projectSetConfig(data))
     createFile({ ...data, username })
     this.props.history.push('/workbench')
