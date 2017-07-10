@@ -9,6 +9,7 @@ export const langSetName = (name) => {
 }
 
 export const langTranslationAdd = (translation) => {
+  console.log(translation)
   return ({
     type: TRANSLATION_ADD,
     translation,

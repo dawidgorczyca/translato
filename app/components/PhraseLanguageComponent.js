@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 class PhraseLanguageComponent extends Component {
   componentWillMount() {
+    console.log(this.props.checkForTranslation(this.props.id, this.props.phraseIndex))
     if (!this.props.checkForTranslation(this.props.id, this.props.phraseIndex)) {
       this.props.langTranslationAdd({phraseIndex: this.props.phraseIndex, content: ''})
     }

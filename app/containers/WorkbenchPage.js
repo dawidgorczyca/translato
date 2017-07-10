@@ -108,7 +108,7 @@ class WorkbenchPage extends Component {
     this.props.dispatch(ProjectActions.projectAddPhrase(newPhrase))
   }
   checkForTranslation(langIndex, transIndex) {
-    return !!this.props.project.config.languages[langIndex][transIndex]
+    return !!this.props.project.config.languages[langIndex].translations[transIndex]
   }
   // TODO:
   // -Load existing phrases and translations on project enter
