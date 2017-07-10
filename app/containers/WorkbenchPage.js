@@ -32,7 +32,7 @@ import PhraseComponent from '../components/PhraseComponent'
 import PhraseLanguageComponent from '../components/PhraseLanguageComponent'
 import TranslationComponent from '../components/TranslationComponent'
 import { createFile } from '../utils/file'
-import { deepCopy, getDateTime } from '../utils/helpers'
+import { deepCopy, getDateTime, makeArrayUnique } from '../utils/helpers'
 import { projectDefaultState, phraseDefaultState } from '../statics/TypesAndDefaults'
 
 class WorkbenchPage extends Component {
@@ -49,12 +49,32 @@ class WorkbenchPage extends Component {
   }
   componentWillMount() {
     this.storeCurrentLanguages(this.props.project.config.languages)
+    this.renderExistingPhrases(this.props.project.config.languages)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.project !== this.props.project) {
       createFile(nextProps.project.config, nextProps.project.phrases)
     }
     this.storeCurrentLanguages(nextProps.project.config.languages)
+  }
+  renderExistingPhrases(languages = this.props.project.config.languages, phrasesStored = this.props.project.phrases) {
+    if (!languages || !phrasesStored) return false
+    let phrasesFound = []
+    languages.forEach((language) => {
+      if (language.translations.length) {
+        language.translations.forEach((translation) => {
+          phrasesFound.push(translation.phraseIndex)
+        })
+      }
+    })
+    phrasesFound = makeArrayUnique(phrasesFound)
+    if (phrasesFound.length !== phrasesStored.length) {
+      phrasesFound.forEach((phrase, index) => {
+        if (!phrasesStored[index]) {
+          this.addPhrase()
+        }
+      })
+    }
   }
   // This might not be needed at all
   storeCurrentLanguages(recievedLanguages) {

@@ -8,7 +8,6 @@ export const langSetName = (name) => {
   })
 }
 
-// TODO: Sync languages list for phrases if user chooses to
 export const langTranslationAdd = (translation) => {
   return ({
     type: TRANSLATION_ADD,

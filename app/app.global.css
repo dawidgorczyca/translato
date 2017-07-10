@@ -2,11 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i|Poppins:400,700&subset=latin-ext');
 
 body {
-  position: relative;
-  color: #7c7c7c;
-  height: 100vh;
   background-color: white;
-  overflow-y: hidden;
   font-family: 'Crimson Text', serif;
   font-size: 14px;
 }

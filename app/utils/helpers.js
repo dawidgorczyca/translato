@@ -22,3 +22,7 @@ export function getDateTime() {
          currentdate.getMinutes()}:${
          currentdate.getSeconds()}`
 }
+export function makeArrayUnique(array) {
+  const seen = {}
+  return array.filter((item) => seen.hasOwnProperty(item) ? false : (seen[item] = true))
+}
