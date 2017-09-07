@@ -2,6 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
+// Toggle usage
+/* <BasicInputComponent
+  label="Toggle testing"
+  name="testToggle"
+  type="toggle"
+  checked={this.state.testToggle}
+  wrapperClass="toggleWrap"
+  onChange={(event) => this.handleChange(event)}
+/> */
+
 function mockCheckboxEventObject(event) {
   return {
     target: {
@@ -10,8 +20,35 @@ function mockCheckboxEventObject(event) {
     }
   }
 }
-const BasicInputComponent = props => {
-  return (
+
+function mockToggleEventObject(name, value) {
+  return {
+    target: {
+      name,
+      value: !value,
+    }
+  }
+}
+
+const ToggleInput = props => (
+  <div className={'toggleInput-wrap'} role="button" onClick={props.onChange}>
+    {(props.checked ?
+      <div className={classnames('toggleInput-handle', 'toggleInput-on')} /> :
+      <div className={classnames('toggleInput-handle', 'toggleInput-off')} />
+    )}
+  </div>
+)
+
+ToggleInput.propTypes = {
+  checked: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+}
+
+ToggleInput.defaultProps = {
+  checked: false,
+}
+
+const BasicInputComponent = props => (
   <div className={classnames('basic-input', props.wrapperClass, `input-${props.type}`)}>
     {(props.label && props.type !== 'checkbox' && props.type !== 'radio' ?
       <label htmlFor={props.name}>{props.label}</label> : ''
@@ -53,21 +90,26 @@ const BasicInputComponent = props => {
         onChange={props.onChange}
       >
         {
-          props.options.map(function(option, i) {
-            return (
-              <option
-                key={i}
-                value={option.value}
-                label={option.label}
-              >{option.label}</option>
-            ) 
-          })
+          props.options.map((option) => (
+            <option
+              key={option.value}
+              value={option.value}
+              label={option.label}
+            >{option.label}</option>
+            ))
         }
       </select>
     )}
+    {(props.type === 'toggle' ?
+      <ToggleInput
+        name={props.name}
+        type={props.type}
+        checked={props.checked}
+        onChange={() => props.onChange(mockToggleEventObject(props.name, props.checked))}
+      /> : ''
+    )}
   </div>
 )
-}
 
 BasicInputComponent.propTypes = {
   label: PropTypes.string,

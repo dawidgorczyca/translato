@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import BasicInputComponent from '../components/BasicInputComponent'
 import styles from '../containers/DashboardPage.css'
 import DashboardProjectForm from '../components/DashboardProjectForm'
 import DashboardProjectComponent from '../components/DashboardProjectComponent'
@@ -11,9 +10,11 @@ class DashboardProjectWizard extends Component {
     this.state = {
       projectsVisible: false,
       projectCreationVisible: false,
+      testToggle: true,
     }
     this.toggleCreateProjectForm = this.toggleCreateProjectForm.bind(this)
     this.toggleExistingProjects = this.toggleExistingProjects.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
   toggleExistingProjects() {
     this.setState({ projectsVisible: !this.state.projectsVisible })
@@ -31,6 +32,9 @@ class DashboardProjectWizard extends Component {
         {elements}
       </ul>
     )
+  }
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
   }
   render() {
     const projectForm = this.state.projectCreationVisible ?
