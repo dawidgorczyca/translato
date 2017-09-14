@@ -93,7 +93,7 @@ class DashboardPage extends Component {
         handleSubmit={(event, data) => this.handleSubmit(event, data)}
         loadProject={this.loadProject}
         cleanProjects={this.cleanProjects}
-        cleanUsername={this.cleanUsername}
+        setUsername={this.setUsername}
         checkIfProjectsExists={() => this.checkIfProjectsExists()}
       />) :
       (<DashboardUserWizard

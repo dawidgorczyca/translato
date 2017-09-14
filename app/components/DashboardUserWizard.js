@@ -16,7 +16,7 @@ class DashboardUserWizard extends Component {
     return (
       <div className={styles.dashboard__userWizard}>
         <form onSubmit={(event) => this.props.handleSubmit(event)}>
-          First, please tell me your name
+          <span>First, please tell me your name</span>
           <BasicInputComponent
             name="username"
             type="text"

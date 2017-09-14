@@ -1,3 +1,6 @@
+@value vars: "../variables.css";
+@value grayTrans1, shadow1, sea1, gray1, gray2, gray3, gray4, gray5, gray6, gray7, orange1, orange2, orange3, orange4, green1, white, fontSizeMid, fontSizeBig, fontSizeHug from vars;
+
 .dashboardPage {
   position: absolute;
   left: 0px;
@@ -14,28 +17,37 @@
   font-family: 'Source Sans Pro';
   font-weight: 300;
   text-align: center;
-  font-size: 32px;
-  color: #F2A008;
+  font-size: fontSizeHug;
+  color: orange3;
   margin:130px 0 0;
 }
 .projectsList__hidden {
   display: none;
 }
 .dashboard__userWizard {
-  font-size: 16px;
+  max-width: 400px;
+  margin: 0 auto;
+  color: white;
+  font-size: fontSizeBig;
   text-align: center;
 }
 .dashboard__userWizard * {
   margin: 5px;
 }
+.dashboard__userWizard span {
+  float: left;
+  width: 100%;
+}
 .dashboard__userWizard input[type=text] {
   text-align: center;
-  font-size: 18px;
+  font-size: fontSizeBig;
+  background-color: grayTrans1;
+  border: 1px solid gray7;
 }
 .dashboard__mainMenu h2 {
   font-family: 'Roboto Mono';
   font-weight: 300;
-  font-size: 18px;
+  font-size: fontSizeHug;
   margin: 0 0 40px;
   text-align: center;
 }
@@ -43,7 +55,7 @@
   width: 50%;
   margin: 10px 25%;
   padding: 15px;
-  font-size: 14px;
+  font-size: fontSizeMid;
   font-weight: 100;
 }
 .projectCreator, .projectsList {
@@ -64,12 +76,15 @@
   margin: 0px;
 }
 .folderSelection .projectCreator_path {
-  background-color: #e5e5e5;
-  color: #7c7c7c;
-  height: 45px;
-  line-height: 45px;
+  background-color: gray4;
+  border: 1px solid gray7;
+  border-left: none;
+  color: white;
+  height: 48px;
+  line-height: 48px;
   text-align: center;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .buttonSubmit {
   margin-top: 10px;
@@ -79,9 +94,10 @@
   float: left;
   width: 100%;
   text-align: left;
-  font-size: 16px;
+  font-size: fontSizeBig;
   margin-bottom: 10px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid gray5;
+  color: white;
 }
 .projectsList li span {
   float: left;
@@ -93,20 +109,22 @@
   float: left;
   width: 30%;
   margin: 0;
-  background-color: #e5e5e5;
-  border-color: #e5e5e5;
+  color: white;
+  background-color: transparent;
+  border-color: gray5;
+  border-bottom: none;
 }
 .projectsList li:hover {
-  border-color: #84f9f2;
-  color: #79d1c9;
+  border-color: orange2;
+  color: orange4;
 }
 .projectsList li button:hover {
-  background-color: #84f9f2;
-  border-color: #84f9f2;
+  background-color: orange2;
+  border-color: orange2;
 }
 .projectForm_visible {
-  border: 1px solid #181D21;
-  box-shadow: inset 0 0 0 1px #3D444A;
-  background-color: rgba(53, 60, 66, 0.8);
+  border: 1px solid gray7;
+  box-shadow: inset 0 0 0 1px shadow1;
+  background-color: grayTrans1;
   color: white;
 }

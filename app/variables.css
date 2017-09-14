@@ -1,0 +1,27 @@
+/*Font*/
+@value fontSizeMid: 14px;
+@value fontSizeSml: 12px;
+@value fontSizeBig: 16px;
+@value fontSizeHug: 32px;
+/*Colors*/
+@value white: white;
+@value gray1: #a0a0a0;
+@value gray2: #9BA2A3;
+@value gray3: #7c7c7c;
+@value gray4: #586978;
+@value gray5: #353C42;
+@value gray6: #2B3136;
+@value gray7: #181D21;
+
+@value grayTrans1: rgba(53, 60, 66, 0.8);
+
+@value shadow1: #3D444A;
+
+@value orange1: #fcb85f;
+@value orange2: #F7AB1C;
+@value orange3: #F2A008;
+@value orange4: #E69A0B;
+
+@value green1: #6ADB39;
+
+@value sea1: #71fcf3;
