@@ -104,3 +104,9 @@
   background-color: #84f9f2;
   border-color: #84f9f2;
 }
+.projectForm_visible {
+  border: 1px solid #181D21;
+  box-shadow: inset 0 0 0 1px #3D444A;
+  background-color: rgba(53, 60, 66, 0.8);
+  color: white;
+}

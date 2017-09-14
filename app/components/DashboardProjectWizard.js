@@ -43,13 +43,16 @@ class DashboardProjectWizard extends Component {
         handleSubmit={this.props.handleSubmit}
       />) : ''
     const projects = this.state.projectsVisible ? this.renderExistingProjects() : ''
+    const projectFormContainerClass = this.state.projectCreationVisible ? styles.projectForm_visible : ''
     return (
       <div className={styles.dashboard__mainMenu}>
         <h2>Hello, {this.props.username}</h2>
-        <button onClick={() => this.toggleCreateProjectForm()}>
-          New Project
-        </button>
-        {projectForm}
+        <div className={projectFormContainerClass}>
+          <button onClick={() => this.toggleCreateProjectForm()}>
+            New Project
+          </button>
+          {projectForm}
+        </div>
         <button onClick={() => this.toggleExistingProjects()}>
           Open project
         </button>
