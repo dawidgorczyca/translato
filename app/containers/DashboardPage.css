@@ -1,5 +1,5 @@
 @value vars: "../variables.css";
-@value grayTrans1, shadow1, sea1, gray1, gray2, gray3, gray4, gray5, gray6, gray7, orange1, orange2, orange3, orange4, green1, white, fontSizeMid, fontSizeBig, fontSizeHug from vars;
+@value grayTrans1, shadow1, sea1, gray1, gray2, gray3, gray4, gray5, gray6, gray7, orange1, orange2, orange3, orange4, green1, white, fontSizeMid, fontSizeBig, fontSizeHug, fontSizeSml from vars;
 
 .dashboardPage {
   position: absolute;
@@ -93,28 +93,24 @@
 .projectsList li {
   float: left;
   width: 100%;
-  text-align: left;
   font-size: fontSizeBig;
-  margin-bottom: 10px;
+  padding: 10px 0;
   border-bottom: 1px solid gray5;
   color: white;
+  text-align: left;
 }
-.projectsList li span {
+.projectList_item__left, .projectList_item__right {
   float: left;
-  width: 70%;
+  width: 50%;
   margin: 0;
-  line-height: 45px;
 }
-.projectsList li button {
-  float: left;
-  width: 30%;
-  margin: 0;
-  color: white;
-  background-color: transparent;
-  border-color: gray5;
-  border-bottom: none;
+.projectList_item__right {
+  text-align: right;
+  font-size: fontSizeSml;
+  line-height: 20px;
 }
 .projectsList li:hover {
+  cursor: pointer;
   border-color: orange2;
   color: orange4;
 }
@@ -127,4 +123,12 @@
   box-shadow: inset 0 0 0 1px shadow1;
   background-color: grayTrans1;
   color: white;
+}
+.projectForm_visible .btn__newProject {
+  border-color: gray4;
+  color: gray4;
+  background-color: transparent;
+}
+.projectForm_visible .buttonSubmit {
+  width: 100%;
 }

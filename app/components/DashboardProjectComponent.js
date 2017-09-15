@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styles from '../containers/DashboardPage.css'
 
 class DashboardProjectComponent extends Component {
   render() {
     const { project, loadProject, id } = this.props
     return (
-      <li key={id} >
-        <span>
+      <li key={id} onClick={() => loadProject(id)} role="link">
+        <span className={styles.projectList_item__left}>
           {project.projectName}
-          {project.projectBaseLanguage}
         </span>
-        <button onClick={() => loadProject(id)}>OPEN</button>
+        <span className={styles.projectList_item__right}>
+          Author: {project.username} | Base Language: {project.projectBaseLanguage}
+        </span>
       </li>
     )
   }

@@ -48,7 +48,7 @@ class DashboardProjectWizard extends Component {
       <div className={styles.dashboard__mainMenu}>
         <h2>Hello, {this.props.username}</h2>
         <div className={projectFormContainerClass}>
-          <button onClick={() => this.toggleCreateProjectForm()}>
+          <button className={styles.btn__newProject} onClick={() => this.toggleCreateProjectForm()}>
             New Project
           </button>
           {projectForm}
